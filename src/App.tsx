@@ -25,10 +25,17 @@ const testData = [
 
 function App() {
    const [profileData, setProfileData] = useState(testData);
+   const addNewProfile = (profData:any): any => {
+     
+    console.log('App ' + profData)
+  
+   //setProfileData(profData)
+    
+   }
   return (
     <div className="App">
       <header className="header">The Github Cards App</header>
-      <Form />
+      <Form onSubmit={addNewProfile}/>
       <CardList profiles={profileData} />
     </div>
   );
