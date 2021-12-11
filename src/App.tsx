@@ -1,7 +1,7 @@
 import './App.css';
 
+import { CardList } from './components/CardList';
 import React from 'react';
-import logo from './logo.svg';
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
       <header className="header">
         The Github Cards App
       </header>
-      
+      <CardList />
     </div>
   );
 }
