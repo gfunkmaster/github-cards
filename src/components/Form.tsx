@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from 'react'
-
-import axios from 'axios';
+import React, { useState } from 'react'
 
 const Form = (props:any) => {
 
@@ -10,60 +8,45 @@ const Form = (props:any) => {
 const [username, setUsername] = useState('')  
 
  
-  
+   const handleChange = (event:any) => {
+    setUsername(event.target.value);
+  }
 
 
 
 
-const useHandleSubmit = async (event: any) => {
+const HandleSubmit = async (event: any) => {
   event.preventDefault();
   
- /*   const resp = await axios.get(`https://api.github.com/users/${username}`)
-   
-    console.log(resp.data)
-    props.onSubmit(resp.data)
-   //onSubmit(resp.data);
-   //this.setState({ userName: "" }); */
-
-  /*  useEffect(() => {
-     const fetchData = async () => {
-       const result = await axios(`https://api.github.com/users/${username}`);
-
-       props.onSubmit(result.data);
-     };
-
-     fetchData();
-   }, []); 
- */
-
-     
        await fetch(`https://api.github.com/users/${username}`)
+         .then((data) => data.json())
          .then((data) => {
-           return data.json();
+           if(data.message) {
+               console.log(data.message)
+           } else {
+               setUsername(data);
+               console.log(data);
+                
+           }
          })
-         .then((data) => {
-           setUsername(data.data);
-         })
-         .catch((err) => {
-           console.log(123123);
-         });
+       
     
    
      props.onSubmit(username);
   
 };
 
-
+ //value={this.state.value} onChange={this.handleChange}
 
 
     return (
       <>
-        <form onSubmit={useHandleSubmit}>
+        <form onSubmit={HandleSubmit}>
           <input
             type="text"
             placeholder="Github username"
             value={username}
-            onChange={(event) => setUsername(event.target.value)}
+            onChange={handleChange}
             required
           />
           <button>Add Card</button>
